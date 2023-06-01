@@ -43,13 +43,13 @@ export default class TaiwanShopeeBot {
     // for a delay (4s), and if the webpage stays at the login page, we assert
     // that the user is not logged in.
     const urlLogin =
-      'https://shopee.tw/buyer/login?from=https%3A%2F%2Fshopee.tw%2Fuser%2Fcoin&next=https%3A%2F%2Fshopee.tw%2Fshopee-coins'
+      'https://shopee.ph/buyer/login?from=https%3A%2F%2Fshopee.ph%2Fuser%2Fcoin&next=https%3A%2F%2Fshopee.ph%2Fshopee-coins'
     await this.driver.get(urlLogin)
     await new Promise(res => setTimeout(res, 4000))
     const curUrl = await this.driver.getCurrentUrl()
     logger.debug('Currently at url: %s', curUrl)
 
-    const urlCoin = 'https://shopee.tw/shopee-coins'
+    const urlCoin = 'https://shopee.ph/shopee-coins'
     if (curUrl === urlCoin) {
       // The webpage is redirected to the coin check-in page and therefore the
       // user must have been logged in.
@@ -169,7 +169,7 @@ export default class TaiwanShopeeBot {
       const success = new Promise<'success'>((res, rej) => {
         this.driver
           .wait(
-            until.urlMatches(/^https:\/\/shopee.tw\/shopee-coins(\?.*)?$/),
+            until.urlMatches(/^https:\/\/shopee.ph\/shopee-coins(\?.*)?$/),
             TIMEOUT_AUTH
           )
           .then(() => res('success'))
@@ -226,7 +226,7 @@ export default class TaiwanShopeeBot {
     await btnLoginWithLink.click()
 
     // Wait until the page is redirect.
-    await this.driver.wait(until.urlIs('https://shopee.tw/verify/link'))
+    await this.driver.wait(until.urlIs('https://shopee.ph/verify/link'))
 
     // Check if reaching daily limits.
     const reachLimit = await this.driver.findElements(
@@ -263,7 +263,7 @@ export default class TaiwanShopeeBot {
     await btnLoginWithLink.click()
 
     // Wait until the page is redirect.
-    await this.driver.wait(until.urlIs('https://shopee.tw/verify/email-link'))
+    await this.driver.wait(until.urlIs('https://shopee.ph/verify/email-link'))
 
     // TODO: check if reaching daily limits.
 
@@ -305,7 +305,7 @@ export default class TaiwanShopeeBot {
     logger.info('Start to load cookies.')
 
     // Connect to dummy page.
-    const urlHome = 'https://shopee.tw/'
+    const urlHome = 'https://shopee.ph/'
     await this.driver.get(urlHome)
 
     // Try to load cookies.
